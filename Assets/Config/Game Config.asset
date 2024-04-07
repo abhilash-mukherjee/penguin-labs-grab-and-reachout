@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55efc30569108d54da6450ed3fbe40fe, type: 3}
+  m_Name: Game Config
+  m_EditorClassIdentifier: 
+  _sessionStartDelay: 20
+  _calibrationTime: 20
+  _postSessionEndResetTime: 20
+  _getCurrentSessionFromServerInterval: 6
+  _scoreIncrementOnDodge: 50
+  _secret: thisIsASecret4550928##hashedforgood
+  _moduleName: GRAB_AND_REACHOUT
+  urlHolder: {fileID: 11400000, guid: 7b8e9850dc9441f4bbef2673dc496b00, type: 2}

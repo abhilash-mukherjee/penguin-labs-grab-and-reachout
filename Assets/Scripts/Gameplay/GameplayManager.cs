@@ -6,22 +6,22 @@ using UnityEngine;
 public class GameplayManager : MonoBehaviour
 {
     public delegate void GameplayInitiationHandler(SessionData sessionData);
-    public static event GameplayInitiationHandler OnGameplayInitiated, OnGameplayEnded;
+    public static event GameplayInitiationHandler OnGameplayInitiated, OnGameplayEnded, OnGameplayReset;
     private SessionData _currentSessionData;
     [SerializeField] private BoolData isActiveSessionPresent;
     [SerializeField] private GameConfig gameConfig;
     private void OnEnable()
     {
         SessionManager.OnNewSessionCreated += InitiateGamaplay;
-        SessionManager.OnSessionEnded += ResetGameplay;
+        SessionManager.OnSessionEnded += EndGameplay;
     }
     private void OnDisable()
     {
         SessionManager.OnNewSessionCreated -= InitiateGamaplay;
-        SessionManager.OnSessionEnded -= ResetGameplay;
+        SessionManager.OnSessionEnded -= EndGameplay;
     }
 
-    private void ResetGameplay(SessionData data)
+    private void EndGameplay(SessionData data)
     {
         _currentSessionData = null;
         StartCoroutine(GamePlayEndCoroutine(gameConfig.PostSessionEndResetTime));
@@ -29,6 +29,7 @@ public class GameplayManager : MonoBehaviour
 
     private void InitiateGamaplay(SessionData data)
     {
+        OnGameplayReset?.Invoke(_currentSessionData);
         _currentSessionData = data;
         StartCoroutine(GamePlayStartCoroutine(gameConfig.SessionStartDelay));
     }

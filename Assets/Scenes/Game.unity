@@ -4257,6 +4257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereY: 1.261
   spherePrefab: {fileID: 2590426304165959405, guid: 3cb5bd27f643e4641ae96b6c5ed47f4c, type: 3}
+  isActiveSessionPresent: {fileID: 11400000, guid: cc521cc314030ab49981fec301a24b1e, type: 2}
 --- !u!1 &1403583127
 GameObject:
   m_ObjectHideFlags: 0

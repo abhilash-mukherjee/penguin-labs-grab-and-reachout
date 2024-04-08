@@ -23,6 +23,20 @@ public class SessionManager : MonoBehaviour
         StartCoroutine(RecursiveCoroutine());
     }
 
+    private void OnEnable()
+    {
+        SphereSpawnner.OnNoMoreSpheresPresent += NoMoreSpheres;
+    }
+    
+    private void OnDisable()
+    {
+        SphereSpawnner.OnNoMoreSpheresPresent -= NoMoreSpheres;
+    }
+
+    private void NoMoreSpheres()
+    {
+        SessionCompleted(_sessionData);
+    }
 
     private void SessionCompleted(SessionData data)
     {

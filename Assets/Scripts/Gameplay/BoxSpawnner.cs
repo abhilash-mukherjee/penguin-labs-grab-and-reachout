@@ -12,12 +12,14 @@ public class BoxSpawnner : MonoBehaviour
     {
         GameplayManager.OnGameplayInitiated += SpawnBoxes;
         GameplayManager.OnGameplayEnded += RemoveBoxes;
+        GameplayManager.OnGameplayReset += RemoveBoxes;
     }
     
     private void OnDisable()
     {
         GameplayManager.OnGameplayInitiated -= SpawnBoxes;
         GameplayManager.OnGameplayEnded -= RemoveBoxes;
+        GameplayManager.OnGameplayReset -= RemoveBoxes;
     }
 
     private void RemoveBoxes(SessionData sessionData)

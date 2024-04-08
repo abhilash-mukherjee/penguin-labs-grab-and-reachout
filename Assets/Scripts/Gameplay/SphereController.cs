@@ -8,6 +8,23 @@ public class SphereController : MonoBehaviour
 
     public string Label { get => _label; }
 
+    private void OnEnable()
+    {
+        GameplayManager.OnGameplayEnded += DestroySpheres;
+        GameplayManager.OnGameplayReset += DestroySpheres;
+    }
+    
+    private void OnDisable()
+    {
+        GameplayManager.OnGameplayEnded -= DestroySpheres;
+        GameplayManager.OnGameplayReset -= DestroySpheres;
+    }
+
+    private void DestroySpheres(SessionData sessionData)
+    {
+        Destroy(gameObject);
+    }
+
     public void InitiateSphere(Sphere sphere, Vector3 finalPosition)
     {
         _label = sphere.label;

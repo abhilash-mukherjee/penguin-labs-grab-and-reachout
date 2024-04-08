@@ -4,23 +4,39 @@ using Random = UnityEngine.Random;
 
 public class SphereSpawnner : MonoBehaviour
 {
+    public delegate void SphereSpawnEventHandler();
+    public static event SphereSpawnEventHandler OnNoMoreSpheresPresent;
     [SerializeField] private float sphereY;
     [SerializeField] private SphereController spherePrefab;
+    [SerializeField] private BoolData isActiveSessionPresent;
     private List<Queue<Vector3>> spawnPointQueues = new();
     private Sphere[] _spheres;
     private int _currentSphereIndex = 0;
+    private SessionData _cachedSessionData;
     private void OnEnable()
     {
         GameplayManager.OnGameplayInitiated += ConfigureSpawnningData;
+        GameplayManager.OnGameplayReset += ResetConfiguration;
+        GameplayManager.OnGameplayEnded += ResetConfiguration;
     }
     
     private void OnDisable()
     {
         GameplayManager.OnGameplayInitiated -= ConfigureSpawnningData;
+        GameplayManager.OnGameplayReset -= ResetConfiguration;
+        GameplayManager.OnGameplayEnded -= ResetConfiguration;
+    }
+
+    private void ResetConfiguration(SessionData sessionData)
+    {
+        _spheres = null;
+        _cachedSessionData = null;
+        spawnPointQueues.Clear();
     }
 
     public void SpawnNextSphere()
     {
+        if (_spheres == null || _spheres.Length == 0 || isActiveSessionPresent.value == false) return;
         bool spawned = false;
         int attempts = 0;
 
@@ -50,7 +66,8 @@ public class SphereSpawnner : MonoBehaviour
 
         if (!spawned)
         {
-            Debug.Log("Session ended - no more spheres to spawn.");
+            if(_cachedSessionData != null) OnNoMoreSpheresPresent?.Invoke();
+            _cachedSessionData = null;
         }
         else
         {
@@ -61,6 +78,7 @@ public class SphereSpawnner : MonoBehaviour
 
     private void ConfigureSpawnningData(SessionData sessionData)
     {
+        _cachedSessionData = sessionData;
         _spheres = sessionData.sessionParams.spheres;
         var reps = sessionData.sessionParams.reps;
         for(int i = 0; i < _spheres.Length; i++)
@@ -68,7 +86,7 @@ public class SphereSpawnner : MonoBehaviour
             var sphere = _spheres[i];
             var zoneCentre = new Vector3(sphere.spawnCentreX, sphereY, sphere.spawnCentreZ);
             int sphereCount = GetSphereCount(reps, _spheres.Length, i);
-            spawnPointQueues.Add(GetSpawnPointsQueue(sessionData.sessionParams.reps, zoneCentre, sphere.zoneWidth));
+            spawnPointQueues.Add(GetSpawnPointsQueue(sphereCount, zoneCentre, sphere.zoneWidth));
         }
     }
 

@@ -57,6 +57,10 @@ public class SessionManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Period)) SessionCompleted(_sessionData);
+    }
     void ProcessData(UnityWebRequest webRequest)
     {
         switch (webRequest.result)

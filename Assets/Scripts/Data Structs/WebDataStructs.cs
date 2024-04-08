@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class Box
+{
+    public float boxX;
+    public float boxZ;
+    public string label;
+    public string colorLight;
+    public string colorDark;
+}
+
+[System.Serializable]
+public class Sphere
+{
+    public float spawnCentreX;
+    public float spawnCentreZ;
+    public float zoneWidth;
+    public string color;
+    public string label;
+}
+
+[System.Serializable]
 public class SessionParams
 {
-    public int duration;
-    public int cubeGap;
-    public int speed;
-    public string targetSide;
-    public int rightOffsetCentimeters;
-    public int leftOffsetCentimeters;
-    public bool isStanding;
-    public int cubeScaleDecimeters;
-    public int spawningDistanceMetres;
-    public int spawnHeightDecimetres;
-    public int zThresholdInMetres;
+    public string targetHand;
+    public int reps;
+    public Box[] boxes;
+    public Sphere[] spheres;
 }
 
 [System.Serializable]

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Game Config
   m_EditorClassIdentifier: 
   _sessionStartDelay: 20
-  _calibrationTime: 20
+  _calibrationTime: 10
   _postSessionEndResetTime: 20
   _getCurrentSessionFromServerInterval: 6
   _scoreIncrementOnDodge: 50

@@ -8,13 +8,11 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CubeController.OnCubeCollided += UpdateScore;
         SessionManager.OnNewSessionCreated += ResetScore;
     }
     
     private void OnDisable()
     {
-        CubeController.OnCubeCollided -= UpdateScore;
         SessionManager.OnNewSessionCreated -= ResetScore;
     }
 
@@ -23,11 +21,4 @@ public class ScoreManager : MonoBehaviour
         score.value = 0;
     }
 
-    private void UpdateScore(TargetSide side, EventType eventType)
-    {
-        if(eventType == EventType.DODGED)
-        {
-            score.value += gameConfig.ScoreIncrementOnDodge;
-        }
-    }
 }

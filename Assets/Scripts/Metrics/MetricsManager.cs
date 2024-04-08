@@ -14,13 +14,11 @@ public class MetricsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CubeController.OnCubeCollided += RecordMetrics;
         SessionManager.OnSessionEnded += SendMetrics;
         SessionManager.OnNewSessionCreated += ResetMetrics;
     }
     private void OnDisable()
     {
-        CubeController.OnCubeCollided -= RecordMetrics;
         SessionManager.OnSessionEnded -= SendMetrics;
         SessionManager.OnNewSessionCreated -= ResetMetrics;
     }
@@ -86,21 +84,7 @@ public class MetricsManager : MonoBehaviour
         }
     }
 
-    private void RecordMetrics(TargetSide side, EventType eventType)
-    {
-        if(side == TargetSide.LEFT)
-        {
-            _leftCubes++;
-            if (eventType == EventType.HIT) _leftHits++;
-            else _leftDodges++;
-        }
-        else
-        {
-            _rightCubes++;
-            if (eventType == EventType.HIT) _rightHits++;
-            else _rightDodges++;
-        }
-    }
+
 }
 public enum EventType
 {

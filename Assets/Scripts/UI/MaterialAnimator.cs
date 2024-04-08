@@ -22,24 +22,6 @@ public class MaterialAnimator : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        CubeController.OnCubeCollided += Animate;
-    }
-    
-    private void OnDisable()
-    {
-        CubeController.OnCubeCollided -= Animate;
-    }
-
-    private void Animate(TargetSide side, EventType eventType)
-    {
-        if (eventType == EventType.HIT)
-        {
-            StartCoroutine(AnimateMaterial());
-        }
-    }
-
     IEnumerator AnimateMaterial()
     {
         for (int i = 0; i < blinkCount; i++)

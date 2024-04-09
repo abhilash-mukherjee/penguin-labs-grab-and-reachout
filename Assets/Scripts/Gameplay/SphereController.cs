@@ -2,8 +2,8 @@
 
 public class SphereController : MonoBehaviour
 {
-    public delegate void SpherDropHandler();
-    public static event SpherDropHandler OnSpherePlacedInBox;
+    public delegate void SphereEventHandler();
+    public static event SphereEventHandler OnSpherePickup, OnSpherePlacedInBox;
     [SerializeField] private string handTag, boxTag, floorTag;
     [SerializeField] private GameObject model;
     [SerializeField] private MeshRenderer meshRenderer;
@@ -58,6 +58,7 @@ public class SphereController : MonoBehaviour
                     transform.parent = other.transform.GetChild(0);
                     transform.localPosition = Vector3.zero;
                     _isLiftedOnce = true;
+                    OnSpherePickup?.Invoke();
                 }
                 else
                 {

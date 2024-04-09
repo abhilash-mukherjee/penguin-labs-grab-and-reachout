@@ -7,7 +7,7 @@ public class GameConfig : ScriptableObject
     [SerializeField] private int _calibrationTime;
     [SerializeField] private int _postSessionEndResetTime;
     [SerializeField] private float _getCurrentSessionFromServerInterval;
-    [SerializeField] private int _scoreIncrementOnDodge;
+    [SerializeField] private int _scoreIncrement;
     [SerializeField] private string _secret;
     [SerializeField] private string _moduleName = "LATERAL_MOVEMENT_MODULE";
     public URLHolder urlHolder;
@@ -15,7 +15,7 @@ public class GameConfig : ScriptableObject
     public int CalibrationTime{ get => _calibrationTime; }
     public int PostSessionEndResetTime { get => _postSessionEndResetTime; }
     public float GetCurrentSessionFromServerInterval { get => _getCurrentSessionFromServerInterval; }
-    public int ScoreIncrementOnDodge { get => _scoreIncrementOnDodge;  }
+    public int ScoreIncrement { get => _scoreIncrement;  }
     public string Secret { get => _secret; }
     public string ModuleName { get => _moduleName; }
 }

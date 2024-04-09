@@ -9,11 +9,13 @@ public class ScoreManager : MonoBehaviour
     private void OnEnable()
     {
         SessionManager.OnNewSessionCreated += ResetScore;
+        SphereController.OnSpherePlacedInBox += IncreaseScore;
     }
     
     private void OnDisable()
     {
         SessionManager.OnNewSessionCreated -= ResetScore;
+        SphereController.OnSpherePlacedInBox -= IncreaseScore;
     }
 
     private void ResetScore(SessionData data)
@@ -21,4 +23,8 @@ public class ScoreManager : MonoBehaviour
         score.value = 0;
     }
 
+    private void IncreaseScore()
+    {
+        score.value += gameConfig.ScoreIncrement;
+    }
 }

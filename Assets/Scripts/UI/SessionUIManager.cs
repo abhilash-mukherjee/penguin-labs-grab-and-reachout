@@ -8,9 +8,6 @@ public class SessionUIManager : MonoBehaviour
 
     [SerializeField]
     private SessionUISuperClass sessionStartUI, gameplayUI, endUI;
-    [SerializeField] private Sprite pausedSprite, playingSprite;
-    [SerializeField] private UnityEngine.UI.Image image;
-
 
     [SerializeField]
     private GameConfig gameConfig;
@@ -25,34 +22,21 @@ public class SessionUIManager : MonoBehaviour
     {
         SessionManager.OnNewSessionCreated += NewSessionCreated;
         SessionManager.OnSessionEnded += SessionEnded;
-        SessionManager.OnSessionPaused += PauseUI;
-        SessionManager.OnSessionResumed += ResumeUI;
     }
     
     private void OnDisable()
     {
         SessionManager.OnNewSessionCreated -= NewSessionCreated;
         SessionManager.OnSessionEnded -= SessionEnded;
-        SessionManager.OnSessionPaused -= PauseUI;
-        SessionManager.OnSessionResumed -= ResumeUI;
     }
 
-    private void PauseUI(SessionData data)
-    {
-        image.sprite = pausedSprite;
-    }
 
-    private void ResumeUI(SessionData data)
-    {
-        image.sprite = playingSprite;
-    }
     private void NewSessionCreated(SessionData data)
     {
         _currentSessionData = data;
         sessionStartUI.ShowUI(data);
         endUI.HideUI(_currentSessionData);
         gameplayUI.HideUI(data);
-        image.sprite = playingSprite;
         StopAllCoroutines();
         StartCoroutine(GameplayStarted());
     }

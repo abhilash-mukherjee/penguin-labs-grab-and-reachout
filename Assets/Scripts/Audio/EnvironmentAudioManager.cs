@@ -6,6 +6,7 @@ public class EnvironmentAudioManager : MonoBehaviour
 {
     public AudioSource ambientSource;
     public AudioSource gameplaySource;
+    [SerializeField] private AudioSource pickupSource, dropSource;
     public GameConfig gameConfig;
     public BoolData isActiveSessionPresent;
 
@@ -22,6 +23,8 @@ public class EnvironmentAudioManager : MonoBehaviour
         SessionManager.OnSessionResumed += StartGameplayMode;
         SessionManager.OnSessionEnded += StartAmbientMode;
         SessionManager.OnNewSessionCreated += StartGameplayModeAfterDelay;
+        SphereController.OnSpherePickup += SpherePickup;
+        SphereController.OnSpherePlacedInBox += SphereDrop;
     }
 
     private void OnDisable()
@@ -30,6 +33,18 @@ public class EnvironmentAudioManager : MonoBehaviour
         SessionManager.OnSessionResumed -= StartGameplayMode;
         SessionManager.OnSessionEnded -= StartAmbientMode;
         SessionManager.OnNewSessionCreated -= StartGameplayModeAfterDelay;
+        SphereController.OnSpherePickup -= SpherePickup;
+        SphereController.OnSpherePlacedInBox -= SphereDrop;
+    }
+
+    private void SphereDrop()
+    {
+        dropSource.Play();
+    }
+
+    private void SpherePickup()
+    {
+        pickupSource.Play();
     }
 
     private void StartGameplayModeAfterDelay(SessionData data)

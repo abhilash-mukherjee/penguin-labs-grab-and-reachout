@@ -25,26 +25,11 @@ public class MetricsManager : MonoBehaviour
 
     private void ResetMetrics(SessionData data)
     {
-        _leftCubes = 0;
-        _rightCubes = 0;
-        _leftDodges = 0;
-        _rightDodges = 0;
-        _leftHits = 0;
-        _rightHits = 0;
+        score.value = 0;
     }
 
     private void SendMetrics(SessionData data)
     {
-        Debug.Log($"Session Ended. \n Report: \ntotal cubes: {_leftCubes + _rightCubes}, Left cubes: {_leftCubes},  Right cubes: {_rightCubes} " +
-            $"\ntotal Hits: {_leftHits + _rightHits}, Left Hits: {_leftHits},  Right Hits: {_rightHits}" +
-            $"\ntotal Dodges: {_leftDodges + _rightDodges}, Left Dodges: {_leftDodges},  Right Dodges: {_rightDodges} " +
-            $"\nScore = {score.value}");
-        sessionMetrics.leftCubes = _leftCubes;
-        sessionMetrics.rightCubes = _rightCubes;
-        sessionMetrics.leftDodges = _leftDodges;
-        sessionMetrics.rightDodges = _rightDodges;
-        sessionMetrics.leftHits = _leftHits;
-        sessionMetrics.rightHits = _rightHits;
         StartCoroutine(MetricsCoroutine(data.id));
     }
 
@@ -54,12 +39,6 @@ public class MetricsManager : MonoBehaviour
         Debug.Log("#################Inside metrics coroutine. id =" + sessionId);
         string jsonData = "{\"id\":" + $" \"{sessionId}\"" + "," +  " \"sessionMetrics\": {"
                    + "\"score\": " + score.value + ","
-                   + "\"rightCubes\": " + _rightCubes + ","
-                   + "\"leftCubes\": " + _leftCubes + ","
-                   + "\"rightHits\": " + _rightHits + ","
-                   + "\"leftHits\": " + _leftHits + ","
-                   + "\"leftDodges\": " + _leftDodges + ","
-                   + "\"rightDodges\": " + _rightDodges
                    + "}}";
 
         using (UnityWebRequest webRequest = new UnityWebRequest(uri, "POST"))
@@ -85,8 +64,4 @@ public class MetricsManager : MonoBehaviour
     }
 
 
-}
-public enum EventType
-{
-    HIT,DODGED
 }

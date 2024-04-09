@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hand Collider
   - Box
+  - Floor
   layers:
   - Default
   - TransparentFX

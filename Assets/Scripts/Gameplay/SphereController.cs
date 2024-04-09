@@ -2,6 +2,8 @@
 
 public class SphereController : MonoBehaviour
 {
+    public delegate void SpherDropHandler();
+    public static event SpherDropHandler OnSpherePlacedInBox;
     [SerializeField] private string handTag, boxTag, floorTag;
     [SerializeField] private GameObject model;
     [SerializeField] private MeshRenderer meshRenderer;
@@ -76,6 +78,7 @@ public class SphereController : MonoBehaviour
                     var rb = GetComponent<Rigidbody>();
                     rb.isKinematic = false;
                     rb.useGravity = true;
+                    OnSpherePlacedInBox?.Invoke();
                 }
                 else
                 {

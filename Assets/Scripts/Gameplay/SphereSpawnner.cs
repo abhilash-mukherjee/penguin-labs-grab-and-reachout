@@ -18,6 +18,7 @@ public class SphereSpawnner : MonoBehaviour
         GameplayManager.OnGameplayInitiated += ConfigureSpawnningData;
         GameplayManager.OnGameplayReset += ResetConfiguration;
         GameplayManager.OnGameplayEnded += ResetConfiguration;
+        SphereController.OnSpherePlacedInBox += SpawnNextSphere;
     }
     
     private void OnDisable()
@@ -25,6 +26,7 @@ public class SphereSpawnner : MonoBehaviour
         GameplayManager.OnGameplayInitiated -= ConfigureSpawnningData;
         GameplayManager.OnGameplayReset -= ResetConfiguration;
         GameplayManager.OnGameplayEnded -= ResetConfiguration;
+        SphereController.OnSpherePlacedInBox -= SpawnNextSphere;
     }
 
     private void ResetConfiguration(SessionData sessionData)

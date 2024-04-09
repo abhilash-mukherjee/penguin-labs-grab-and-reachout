@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BackWall
+  - Hand Collider
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - UI
   - Game Play
   - Main Camera
-  - 
+  - Physics Interactions
   - 
   - 
   - 

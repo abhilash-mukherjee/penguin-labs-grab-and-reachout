@@ -51,7 +51,7 @@ public class SphereSpawnner : MonoBehaviour
 
                 // Instantiate the sphere prefab and initialize it
                 SphereController newSphere = Instantiate(spherePrefab, spawnPosition, Quaternion.identity);
-                newSphere.InitiateSphere(_spheres[_currentSphereIndex], spawnPosition);
+                newSphere.InitiateSphere(_spheres[_currentSphereIndex], spawnPosition, _cachedSessionData.sessionParams.targetHand);
 
                 spawned = true; // Mark as spawned
             }
@@ -88,6 +88,7 @@ public class SphereSpawnner : MonoBehaviour
             int sphereCount = GetSphereCount(reps, _spheres.Length, i);
             spawnPointQueues.Add(GetSpawnPointsQueue(sphereCount, zoneCentre, sphere.zoneWidth));
         }
+        SpawnNextSphere();
     }
 
     private int GetSphereCount(int reps, int sphereVariants, int i)

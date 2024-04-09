@@ -2,10 +2,13 @@
 
 public class SphereController : MonoBehaviour
 {
+    [SerializeField] private string handTag, boxTag, floorTag;
     [SerializeField] private GameObject model;
     [SerializeField] private MeshRenderer meshRenderer;
-    private string _label;
-
+    [SerializeField] private int physicsLayer = 8;
+    public string _label;
+    public string _targetHand;
+    private bool _isLiftedOnce;
     public string Label { get => _label; }
 
     private void OnEnable()
@@ -25,9 +28,10 @@ public class SphereController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void InitiateSphere(Sphere sphere, Vector3 finalPosition)
+    public void InitiateSphere(Sphere sphere, Vector3 finalPosition, string targetHand)
     {
         _label = sphere.label;
+        _targetHand = targetHand;
         var colors = new Color[1];
         colors[0] = HelperMethods.ParseHexStringToColor(sphere.color);
         meshRenderer.materials = HelperMethods.GetMaterialArrayFromColors(colors);
@@ -38,5 +42,60 @@ public class SphereController : MonoBehaviour
     {
         model.SetActive(true);
         transform.position = finalPosition;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(handTag) && !_isLiftedOnce)
+        {
+            
+            if(other.TryGetComponent<ColliderLabel>(out var colliderLabel))
+            {
+                if(colliderLabel.label == _targetHand)
+                {
+                    transform.parent = other.transform.GetChild(0);
+                    transform.localPosition = Vector3.zero;
+                    _isLiftedOnce = true;
+                }
+                else
+                {
+                    Debug.Log("Wrong hand");
+                }
+            }
+        }
+        if (other.gameObject.CompareTag(boxTag))
+        {
+            Debug.Log("**Collided with box entry collider");
+            if (other.TryGetComponent<BoxController>(out var boxController))
+            {
+                if(boxController.Label == _label)
+                {
+                    transform.parent = null;
+                    gameObject.layer = physicsLayer;
+                    Debug.Log("set layer to " + gameObject.layer);
+                    var rb = GetComponent<Rigidbody>();
+                    rb.isKinematic = false;
+                    rb.useGravity = true;
+                }
+                else
+                {
+                    Debug.Log("wrong box");
+                }
+            }
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag(floorTag))
+        {
+            Debug.Log("#COllided with floor");
+            if(transform.TryGetComponent<Rigidbody>(out var rb) && transform.TryGetComponent<Collider>(out var collider))
+            {
+                Destroy(rb);
+                Destroy(collider);
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BoxController : MonoBehaviour
 {
-    private string _label;
+    public string _label;
     [SerializeField] private float boxY;
     [SerializeField] private MeshRenderer modelMeshRenderer;
     [SerializeField] private GameObject boxModel;

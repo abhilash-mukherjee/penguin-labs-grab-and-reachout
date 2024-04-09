@@ -44,6 +44,9 @@ public class GameplayManager : MonoBehaviour
     {
         Debug.Log("Inside end coroutine Delay: " + delay);
         yield return new WaitForSeconds(delay);
-        OnGameplayEnded?.Invoke(_currentSessionData);
+        if (isActiveSessionPresent.value == false)
+        {
+            OnGameplayEnded?.Invoke(_currentSessionData);
+        }
     }
 }

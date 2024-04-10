@@ -53,6 +53,8 @@ MonoBehaviour:
   model: {fileID: 9040593542639856599}
   meshRenderer: {fileID: 1968160120575057827}
   physicsLayer: 8
+  scaleReductionOnPickup: 0.8
+  scaleReductionOnDrop: 0.8
   _label: 
   _targetHand: 
 --- !u!135 &1598722888362793777

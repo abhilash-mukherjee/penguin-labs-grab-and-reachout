@@ -7,6 +7,7 @@ public class BoxController : MonoBehaviour
     [SerializeField] private float boxY;
     [SerializeField] private MeshRenderer modelMeshRenderer;
     [SerializeField] private GameObject boxModel;
+    [SerializeField] private float boxLocalScale = 0.75f;
     public string Label { get => _label; }
 
     private void Awake()
@@ -30,6 +31,7 @@ public class BoxController : MonoBehaviour
     public void SpawnBox(Box box)
     {
         transform.position = new Vector3(box.boxX, boxY, box.boxZ);
+        transform.localScale = boxLocalScale * Vector3.one;
         _label = box.label;
         var colors = new Color[2];
         colors[0]  = HelperMethods.ParseHexStringToColor(box.colorLight);

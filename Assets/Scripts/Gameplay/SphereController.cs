@@ -8,6 +8,7 @@ public class SphereController : MonoBehaviour
     [SerializeField] private GameObject model;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private int physicsLayer = 8;
+    [SerializeField] private float scaleReductionOnPickup = 0.75f, scaleReductionOnDrop = 0.5f;
     public string _label;
     public string _targetHand;
     private bool _isLiftedOnce;
@@ -57,6 +58,7 @@ public class SphereController : MonoBehaviour
                 {
                     transform.parent = other.transform.GetChild(0);
                     transform.localPosition = Vector3.zero;
+                    transform.localScale = transform.localScale * scaleReductionOnPickup;
                     _isLiftedOnce = true;
                     OnSpherePickup?.Invoke();
                 }
@@ -75,6 +77,7 @@ public class SphereController : MonoBehaviour
                 {
                     transform.parent = null;
                     gameObject.layer = physicsLayer;
+                    transform.localScale = transform.localScale * scaleReductionOnDrop;
                     Debug.Log("set layer to " + gameObject.layer);
                     var rb = GetComponent<Rigidbody>();
                     rb.isKinematic = false;

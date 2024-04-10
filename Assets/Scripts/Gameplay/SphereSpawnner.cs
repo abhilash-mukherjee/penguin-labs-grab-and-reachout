@@ -32,6 +32,7 @@ public class SphereSpawnner : MonoBehaviour
     private void ResetConfiguration(SessionData sessionData)
     {
         _spheres = null;
+        _currentSphereIndex = 0;
         _cachedSessionData = null;
         spawnPointQueues.Clear();
     }

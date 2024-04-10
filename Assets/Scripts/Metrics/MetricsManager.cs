@@ -38,7 +38,7 @@ public class MetricsManager : MonoBehaviour
         string uri = gameConfig.urlHolder.HTTPSendMetricsRequestURL;
         Debug.Log("#################Inside metrics coroutine. id =" + sessionId);
         string jsonData = "{\"id\":" + $" \"{sessionId}\"" + "," +  " \"sessionMetrics\": {"
-                   + "\"score\": " + score.value + ","
+                   + "\"score\": " + score.value
                    + "}}";
 
         using (UnityWebRequest webRequest = new UnityWebRequest(uri, "POST"))

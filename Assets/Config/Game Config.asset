@@ -16,7 +16,7 @@ MonoBehaviour:
   _calibrationTime: 10
   _postSessionEndResetTime: 20
   _getCurrentSessionFromServerInterval: 6
-  _scoreIncrementOnDodge: 50
+  _scoreIncrement: 50
   _secret: thisIsASecret4550928##hashedforgood
   _moduleName: GRAB_AND_REACHOUT
   urlHolder: {fileID: 11400000, guid: 7b8e9850dc9441f4bbef2673dc496b00, type: 2}

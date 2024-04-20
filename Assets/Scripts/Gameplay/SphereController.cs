@@ -9,10 +9,12 @@ public class SphereController : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private int physicsLayer = 8;
     [SerializeField] private float scaleReductionOnPickup = 0.75f, scaleReductionOnDrop = 0.5f;
+    [SerializeField] private GameObject particles, hallow;
     public string _label;
     public string _targetHand;
     private bool _isLiftedOnce;
     public string Label { get => _label; }
+    public bool IsLiftedOnce { get => _isLiftedOnce; }
 
     private void OnEnable()
     {
@@ -60,6 +62,8 @@ public class SphereController : MonoBehaviour
                     transform.localPosition = Vector3.zero;
                     transform.localScale = transform.localScale * scaleReductionOnPickup;
                     _isLiftedOnce = true;
+                    Destroy(particles);
+                    Destroy(hallow);
                     OnSpherePickup?.Invoke();
                 }
                 else
